@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="styles.css?v=18">
 <script>
   // Apply a saved light/dark choice before the first paint (no flash).
-  try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+var t = null; try { t = localStorage.getItem("theme"); } catch (e) {} document.documentElement.dataset.theme = t === "dark" ? "dark" : "light"; /* light unless the visitor chose dark */
 </script>
 <script>
   // Hide the page until the swarm takes over, so it doesn't flash before being wiped.
