@@ -44,7 +44,7 @@
   sysDark.addEventListener("change", () => {
     let saved = null;
     try { saved = localStorage.getItem("theme"); } catch (e) {}
-   if (!saved) { root.dataset.theme = "light"; syncTheme(); } // default stays light
+    if (!saved) { root.dataset.theme = "light"; syncTheme(); } // default stays light
   });
   syncTheme();
 
