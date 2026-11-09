@@ -560,9 +560,13 @@
       <button type="button" data-a="skip">Skip</button>
     </span>
     <span class="done-part">
-      <span class="hide-mini">✓ <span class="muted-h">Built by</span> <b>${AGENTS.length} agents</b> <span class="muted-h">in</span> <b data-k="time">0s</b></span>
+      <span class="hide-mini sw-done" aria-label="Built by ${AGENTS.length} agents">
+        <span class="sw-check" aria-hidden="true">✓</span>
+        <span class="sw-count"><b>${AGENTS.length}</b><span class="muted-h"> agents</span></span>
+        <span class="sw-count"><b data-k="time">0s</b><span class="muted-h"> build</span></span>
+      </span>
       <button type="button" data-a="replay">Replay ↺</button>
-      <button type="button" data-a="hide" class="hide-mini">Hide agents</button>
+      <button type="button" data-a="hide" class="hide-mini" aria-label="Hide agents">Hide<span class="sw-long"> agents</span></button>
     </span>`;
   const q = k => hud.querySelector(`[data-k="${k}"]`);
   const btn = k => hud.querySelector(`[data-a="${k}"]`);
