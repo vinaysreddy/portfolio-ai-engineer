@@ -601,8 +601,13 @@
     if (e.key === "Escape" && phase !== "done" && phase !== "idle") skipAll();
   });
   // Keyboard users tabbing into the page get the finished page right away,
-  // so focus never lands on a link that isn't drawn yet.
+  // so focus never lands on a link that isn't drawn yet. Mouse and touch
+  // clicks also move focus, so only count focus that came from the keyboard.
+  let pointerFocus = false;
+  addEventListener("pointerdown", () => { pointerFocus = true; }, { capture: true, passive: true });
+  addEventListener("keydown", () => { pointerFocus = false; }, { capture: true });
   document.addEventListener("focusin", e => {
+    if (pointerFocus) return;
     if (phase !== "done" && phase !== "idle" && site.contains(e.target)) skipAll();
   });
 
