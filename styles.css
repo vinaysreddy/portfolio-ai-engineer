@@ -485,26 +485,26 @@ a.award:active { transform: scale(0.98); }
   border: 1.5px solid transparent;
   background:
     linear-gradient(var(--card), var(--card)) padding-box,
-    conic-gradient(from var(--ang), #ea580c, #f59e0b, #ec4899, #8b5cf6, #3b82f6, #ea580c) border-box;
+    conic-gradient(from var(--ang), #0a0a0a, #525252, #a3a3a3, #262626, #737373, #0a0a0a) border-box;
   box-shadow:
     var(--card-shadow),
-    0 0 48px -10px rgb(234 88 12 / var(--g1)),
-    -28px 18px 70px -24px rgb(236 72 153 / var(--g2)),
-    28px -18px 70px -24px rgb(139 92 246 / var(--g3));
+    0 0 48px -10px rgb(0 0 0 / var(--g1)),
+    -28px 18px 70px -24px rgb(38 38 38 / var(--g2)),
+    28px -18px 70px -24px rgb(82 82 82 / var(--g3));
   animation: statusSpin 8s linear infinite, paperGlow 7s ease-in-out infinite alternate;
 }
 @keyframes paperGlow {
   to {
     box-shadow:
       var(--card-shadow),
-      0 0 56px -8px rgb(245 158 11 / var(--g1)),
-      28px 18px 70px -24px rgb(236 72 153 / var(--g2)),
-      -28px -18px 70px -24px rgb(59 130 246 / var(--g3));
+      0 0 56px -8px rgb(23 23 23 / var(--g1)),
+      28px 18px 70px -24px rgb(64 64 64 / var(--g2)),
+      -28px -18px 70px -24px rgb(38 38 38 / var(--g3));
   }
 }
-.paper { --g1: 0.45; --g2: 0.38; --g3: 0.32; }
-:root[data-theme="dark"] .paper { --g1: 0.7; --g2: 0.6; --g3: 0.55; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .paper { --g1: 0.7; --g2: 0.6; --g3: 0.55; } }
+.paper { --g1: 0.22; --g2: 0.16; --g3: 0.12; }
+:root[data-theme="dark"] .paper { --g1: 0.35; --g2: 0.25; --g3: 0.2; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .paper { --g1: 0.35; --g2: 0.25; --g3: 0.2; } }
 @media (prefers-reduced-motion: reduce) { .paper { animation: none; } }
 .paper-thumb {
   --page: #fbfbf8; --page-ink: #1b1d22; --page-line: #dcdcd5;
@@ -820,3 +820,14 @@ html.sw-on .ch.on { opacity: 1; }
 .edu.card { background: #008000; border-color: #008000; color: #ffffff; }
 .edu.card .label, .edu.card h3, .edu.card .muted, .edu.card .edu-course { color: #ffffff; }
 .edu.card .label, .edu.card .muted { opacity: 0.85; }
+
+/* Shimmer sweep across the paper title */
+.paper-title {
+  background: linear-gradient(100deg, var(--ink) 0%, var(--ink) 30%, var(--accent) 34%, var(--accent) 35.5%, var(--accent) 37%, var(--ink) 41%, var(--ink) 58%, var(--accent) 62%, var(--accent) 63.5%, var(--accent) 65%, var(--ink) 69%, var(--ink) 100%);
+  background-size: 200% 100%; background-repeat: repeat-x;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: titleShimmer 9s linear infinite;
+}
+@keyframes titleShimmer { from { background-position: 0% 0; } to { background-position: -200% 0; } } /* exactly one tile: seamless loop */
+@media (prefers-reduced-motion: reduce) { .paper-title { animation: none; } }
