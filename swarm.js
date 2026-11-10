@@ -25,7 +25,6 @@
   const SPEEDS = [1.8, 2.5, 3], SPEED_LABELS = ["1×", "2×", "3×"];
   let speed = SPEEDS[0], gen = 0, phase = "idle", touring = false;
   let tasks = [], agents = [], doneCount = 0, startTime = 0, backlog = 0, lastSched = 0;
-  const mouse = { x: innerWidth / 2, y: innerHeight / 2 };
 
   /* ---------- helpers ---------- */
   const el = (tag, cls, parent) => {
@@ -520,11 +519,7 @@
         const ang = a.angle + t * 1.8;
         tx = cx + Math.cos(ang) * 120; ty = cy + Math.sin(ang) * 70; k = 0.12;
       } else if (phase === "done") {
-        const ang = a.angle + t * 0.7 * (a.i % 2 ? 1 : -1);
-        const rad = 40 + (a.i % 4) * 16;
-        tx = mouse.x + scrollX + Math.cos(ang) * rad;
-        ty = mouse.y + scrollY + Math.sin(ang) * rad * 0.75;
-        k = 0.06 + (a.i % 3) * 0.015;
+        continue; // build finished: agents stay put and fade out, never follow the visitor's cursor
       } else {
         if (!a.wt || now > a.wtUntil || Math.abs(a.wt.y - cy) > innerHeight) {
           a.wt = {
@@ -596,8 +591,7 @@
   });
   addEventListener("wheel", () => touring && setTour(false), { passive: true });
   addEventListener("touchmove", () => touring && setTour(false), { passive: true });
-  addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-  addEventListener("keydown", e => {
+    addEventListener("keydown", e => {
     if (e.key === "Escape" && phase !== "done" && phase !== "idle") skipAll();
   });
   // Keyboard users tabbing into the page get the finished page right away,
@@ -628,6 +622,7 @@
     q("time").textContent = Math.max(1, Math.round((performance.now() - startTime) / 1000)) + "s";
     hud.classList.add("is-done");
     agents.forEach(a => { a.busy = false; a.mode("arrow"); });
+    doc.classList.add("sw-hidden"); // fade the agent cursors out once the page is built
   }
 
   function skipAll() {
